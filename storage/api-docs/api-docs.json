@@ -1,0 +1,74 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API de Torneo de Tenis",
+        "description": "Simulador de torneo de tenis utilizando Laravel",
+        "contact": {
+            "email": "melvin.garciamatos@gmail.com"
+        },
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/torneos/simular": {
+            "post": {
+                "summary": "Simula un torneo de tenis",
+                "operationId": "297c29bf3b27140a02102f323526550a",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "tipo",
+                                    "jugadores"
+                                ],
+                                "properties": {
+                                    "tipo": {
+                                        "type": "string",
+                                        "enum": [
+                                            "masculino",
+                                            "femenino"
+                                        ]
+                                    },
+                                    "jugadores": {
+                                        "type": "array",
+                                        "items": {
+                                            "required": [
+                                                "nombre",
+                                                "nivelHabilidad"
+                                            ],
+                                            "properties": {
+                                                "nombre": {
+                                                    "type": "string"
+                                                },
+                                                "nivelHabilidad": {
+                                                    "type": "integer"
+                                                },
+                                                "fuerza": {
+                                                    "type": "integer"
+                                                },
+                                                "velocidad": {
+                                                    "type": "integer"
+                                                },
+                                                "tiempoReaccion": {
+                                                    "type": "integer"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Ganador del torneo"
+                    }
+                }
+            }
+        }
+    }
+}
