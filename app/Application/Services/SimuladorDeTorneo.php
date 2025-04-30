@@ -5,14 +5,17 @@ namespace App\Application\Services;
 use App\Domain\Entities\Torneo;
 use App\Domain\Entities\Jugador;
 use App\Domain\Services\CentroDelPartido;
+use App\Domain\Repositories\TorneoRepositoryInterface;
 
 class SimuladorDeTorneo
 {
     private CentroDelPartido $centroPartido;
+    private TorneoRepositoryInterface $torneoRepository;
 
-    public function __construct(CentroDelPartido $centroPartido)
+    public function __construct(CentroDelPartido $centroPartido, TorneoRepositoryInterface $torneoRepository)
     {
         $this->centroPartido = $centroPartido;
+        $this->torneoRepository = $torneoRepository;
     }
 
     /**
@@ -22,12 +25,13 @@ class SimuladorDeTorneo
      * @param string $tipo 'masculino' o 'femenino'
      * @return Jugador
      */
-    public function simular(array $jugadores, string $tipo): Jugador
+    public function simular(array $jugadores, string $tipo, \DateTime $fecha, string $lugar): Jugador
     {
         $this->validarCantidadJugadores($jugadores);
 
-        $torneo = new Torneo($jugadores, $tipo, $this->centroPartido);
+        $torneo = new Torneo($jugadores, $tipo, $this->centroPartido, $fecha, $lugar);
         $ganador = $torneo->simular();
+        $this->torneoRepository->guardar($torneo);
 
         return $ganador;
     }

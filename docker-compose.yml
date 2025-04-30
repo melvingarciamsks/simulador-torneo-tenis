@@ -21,11 +21,9 @@ services:
     ports:
       - "8080:8080"
     networks:
-      - torneo-net
-networks:
-  torneo-net:
-    driver: bridge
+      - mosaikus_service
 
-volumes:
-  db_data:
-    driver: local
+networks:
+  mosaikus_service:
+    name: mosaikus_service
+    driver: bridge

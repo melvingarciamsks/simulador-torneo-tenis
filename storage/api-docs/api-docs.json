@@ -11,6 +11,9 @@
     "paths": {
         "/api/torneos/simular": {
             "post": {
+                "tags": [
+                    "Torneos"
+                ],
                 "summary": "Simula un torneo de tenis",
                 "operationId": "297c29bf3b27140a02102f323526550a",
                 "requestBody": {
@@ -29,6 +32,13 @@
                                             "masculino",
                                             "femenino"
                                         ]
+                                    },
+                                    "fecha": {
+                                        "type": "string",
+                                        "format": "date"
+                                    },
+                                    "lugar": {
+                                        "type": "string"
                                     },
                                     "jugadores": {
                                         "type": "array",
@@ -69,6 +79,121 @@
                     }
                 }
             }
+        },
+        "/api/torneos": {
+            "get": {
+                "tags": [
+                    "Torneos"
+                ],
+                "summary": "Buscar torneos",
+                "operationId": "4f23170cbce3e8357c72e5df940b5d99",
+                "parameters": [
+                    {
+                        "name": "fecha",
+                        "in": "query",
+                        "description": "Filtrar por fecha del torneo (YYYY-MM-DD)",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "format": "date"
+                        }
+                    },
+                    {
+                        "name": "lugar",
+                        "in": "query",
+                        "description": "Filtrar por lugar del torneo",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "nombreJugador",
+                        "in": "query",
+                        "description": "Filtrar por nombre del jugador",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Listado de torneos filtrados",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Torneo"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
-    }
+    },
+    "components": {
+        "schemas": {
+            "Torneo": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "tipo": {
+                        "type": "string",
+                        "example": "masculino"
+                    },
+                    "fecha": {
+                        "type": "string",
+                        "format": "date",
+                        "example": "2025-10-01"
+                    },
+                    "lugar": {
+                        "type": "string",
+                        "example": "Buenos Aires"
+                    },
+                    "jugadores": {
+                        "type": "array",
+                        "items": {
+                            "properties": {
+                                "nombre": {
+                                    "type": "string",
+                                    "example": "Pedro Perez"
+                                },
+                                "nivelHabilidad": {
+                                    "type": "integer",
+                                    "example": 90
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "ganador": {
+                        "properties": {
+                            "nombre": {
+                                "type": "string",
+                                "example": "Pedro Perez"
+                            },
+                            "nivelHabilidad": {
+                                "type": "integer",
+                                "example": 90
+                            }
+                        },
+                        "type": "object"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Torneos",
+            "description": "Torneos"
+        }
+    ]
 }
