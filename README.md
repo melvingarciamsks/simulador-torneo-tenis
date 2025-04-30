@@ -23,7 +23,7 @@ Este proyecto es una API RESTful desarrollada en **Laravel 12**. . Su objetivo e
 
 Puedes acceder a la documentación de la API desde el siguiente enlace:
 
-👉 [https://https://simulador-torneo-tenis-854537933420.us-central1.run.app/api/documentation](https://simulador-torneo-tenis-854537933420.us-central1.run.app/)
+👉 [https://simulador-torneo-tenis-854537933420.us-central1.run.app/api/documentation](https://simulador-torneo-tenis-854537933420.us-central1.run.app/)
 
 ---
 
