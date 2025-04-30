@@ -17,7 +17,7 @@ services:
       - DB_PASSWORD=12345678
       - LOG_CHANNEL=stack
       - SESSION_DRIVER=file
-      - L5_SWAGGER_GENERATE_ALWAYS=true
+      - L5_SWAGGER_GENERATE_ALWAYS=false
     ports:
       - "8080:8080"
     networks:
