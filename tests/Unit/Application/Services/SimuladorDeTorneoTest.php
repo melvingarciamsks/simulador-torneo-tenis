@@ -6,14 +6,17 @@ use PHPUnit\Framework\TestCase;
 use App\Application\Services\SimuladorDeTorneo;
 use App\Domain\Entities\JugadorMasculino;
 use App\Domain\Services\CentroDelPartido;
+use App\Domain\Repositories\TorneoRepositoryInterface;
 
 class SimuladorDeTorneoTest extends TestCase
 {
     public function testSimuladorDeTorneoDevuelveGanador()
     {
         // Arrange
+        $repo = $this->createMock(TorneoRepositoryInterface::class);
+        $repo->expects($this->once())->method('guardar');
         $motor = new CentroDelPartido();
-        $simulador = new SimuladorDeTorneo($motor);
+        $simulador = new SimuladorDeTorneo($motor, $repo);
 
         $jugadores = [
             new JugadorMasculino('Jugador 1', 80, 70, 60),
@@ -23,7 +26,7 @@ class SimuladorDeTorneoTest extends TestCase
         ];
 
         // Act
-        $ganador = $simulador->simular($jugadores, 'masculino');
+        $ganador = $simulador->simular($jugadores, 'masculino', new \DateTime(), 'Buenos Aires');
 
         // Assert
         $this->assertInstanceOf(JugadorMasculino::class, $ganador);
@@ -35,8 +38,10 @@ class SimuladorDeTorneoTest extends TestCase
         // Arrange
         $this->expectException(\InvalidArgumentException::class);
 
+        $repo = $this->createMock(TorneoRepositoryInterface::class);
+        //$repo->expects($this->once())->method('guardar');
         $motor = new CentroDelPartido();
-        $simulador = new SimuladorDeTorneo($motor);
+        $simulador = new SimuladorDeTorneo($motor, $repo);
 
         $jugadores = [
             new JugadorMasculino('Jugador 1', 80, 70, 60),
@@ -45,6 +50,6 @@ class SimuladorDeTorneoTest extends TestCase
         ];
 
         // Act
-        $simulador->simular($jugadores, 'masculino');
+        $simulador->simular($jugadores, 'masculino', new \DateTime(), 'Buenos Aires');
     }
 }

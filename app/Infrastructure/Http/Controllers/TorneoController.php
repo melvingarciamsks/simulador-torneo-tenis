@@ -96,7 +96,7 @@ class TorneoController extends BaseController
         } catch (ValidationException $e) {
             return response()->json([
                 'message' => 'Errores de validación',
-                'errors' => $e->errors(), // ← Aquí están los detalles campo por campo
+                'errors' => $e->errors(), 
             ], 422);
         }
         $tipo = $data['tipo'];
